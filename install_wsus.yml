@@ -1,6 +1,6 @@
 ---
 - name: Install WSUS
-  hosts: wsus
+  hosts: all
 
   tasks:
 
