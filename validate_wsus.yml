@@ -1,0 +1,9 @@
+---
+- name: Validate WSUS
+  hosts: wsus
+
+  tasks:
+
+    - name: Check WSUS Service
+      ansible.windows.win_shell: |
+        Get-Service WsusService
