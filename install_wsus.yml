@@ -1,0 +1,24 @@
+---
+- name: Install WSUS
+  hosts: wsus
+
+  tasks:
+
+    - name: Create WSUS Directory
+      ansible.windows.win_file:
+        path: D:\WSUS
+        state: directory
+
+    - name: Install IIS
+      ansible.windows.win_feature:
+        name: Web-Server
+        state: present
+
+    - name: Install WSUS Features
+      ansible.windows.win_feature:
+        name:
+          - UpdateServices
+          - UpdateServices-WidDB
+          - UpdateServices-Services
+        state: present
+        include_management_tools: yes
