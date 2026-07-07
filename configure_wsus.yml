@@ -1,6 +1,6 @@
 ---
 - name: Configure WSUS
-  hosts: wsus
+  hosts: all
 
   tasks:
 
