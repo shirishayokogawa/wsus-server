@@ -1,0 +1,9 @@
+---
+- name: Configure WSUS
+  hosts: wsus
+
+  tasks:
+
+    - name: Run WSUS Post Install
+      ansible.windows.win_shell: |
+        & "C:\Program Files\Update Services\Tools\WsusUtil.exe" postinstall CONTENT_DIR=D:\WSUS
