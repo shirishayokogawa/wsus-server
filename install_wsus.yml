@@ -6,7 +6,7 @@
 
     - name: Create WSUS Directory
       ansible.windows.win_file:
-        path: D:\WSUS
+        path: C:\WSUS
         state: directory
 
     - name: Install IIS
