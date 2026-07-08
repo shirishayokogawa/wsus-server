@@ -1,9 +1,28 @@
 ---
-- name: Configure WSUS
+- name: Validate WSUS
   hosts: all
+  gather_facts: no
 
   tasks:
 
-    - name: Run WSUS Post Install
+    - name: Check WSUS Role
       ansible.windows.win_shell: |
-        & "C:\Program Files\Update Services\Tools\WsusUtil.exe" postinstall CONTENT_DIR=C:\WSUS
+        Get-WindowsFeature UpdateServices
+
+    - name: Check WSUS Service
+      ansible.windows.win_shell: |
+        Get-Service WsusService
+
+    - name: Check IIS Service
+      ansible.windows.win_shell: |
+        Get-Service W3SVC
+
+    - name: Check WSUS Health
+      ansible.windows.win_shell: |
+        & "C:\Program Files\Update Services\Tools\WsusUtil.exe" checkhealth
+
+    - name: Check WSUS Synchronization
+      ansible.windows.win_shell: |
+        [reflection.assembly]::LoadWithPartialName("Microsoft.UpdateServices.Administration")
+        $wsus = [Microsoft.UpdateServices.Administration.AdminProxy]::GetUpdateServer()
+        $wsus.GetSubscription()
